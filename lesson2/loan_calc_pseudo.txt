@@ -1,0 +1,25 @@
+GET principle
+- prompt user for p
+- save imput in gets variable
+- convert to float
+
+GET apr
+- prompt user for apr
+- save imput in gets variable
+- convert to float
+- convert percent to decimal
+
+GET loan_duration
+- prompt user for duration_years
+- save imput in gets variable
+- convert to float
+
+CALC monthly_interest_rate
+(need to figure out what formula for that is)
+
+CALC loan_duration_in_months
+- loan_duration_months = duration_years * 12
+
+CALC monthly_morgage
+
+PRINT monthly_morgage

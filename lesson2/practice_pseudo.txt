@@ -1,0 +1,12 @@
+# 1 method that returns the sum of two intergers:
+- define a method called sums which takes 2 arguments both intergers
+- create a variable within the method that is the sum of the two intergers
+- return the result (though prob do implicit return?)
+
+# 1 FORMAL
+
+START
+SET method called sums which takes 2 arguments
+SET variable the_sum equal to the sum of the two arguments
+READ the_sum
+END
