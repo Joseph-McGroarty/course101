@@ -5,6 +5,10 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9],
                  [1, 4, 7], [2, 5, 8], [3, 6, 9],
                  [1, 5, 9], [3, 5, 7]]
 
+player_win_num = 0
+computer_win_num = 0
+tie_num = 0
+
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -99,12 +103,27 @@ loop do
 
   if someone_won?(board)
     prompt "#{detect_winner(board)} won!"
+    if detect_winner(board) == 'Player'
+      player_win_num += 1
+    elsif detect_winner(board) == 'Computer'
+      computer_win_num += 1
+    end
   else
     prompt "It's a tie!"
+    tie_num += 1
   end
 
-  prompt "Play again? (y or n)"
+  prompt "Player has won #{player_win_num} matches, computer has won #{computer_win_num} matches, and player and computer have tied #{tie_num} times."
+  if player_win_num == 5
+    prompt "Player has won 5 matches. Player wins game!"
+    break
+  elsif computer_win_num == 5
+    prompt "Computer has won 5 matches. Computer wins game!"
+    break
+  end
+  prompt "Play another match? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
+      
 end
 prompt "Thanks for playing."
