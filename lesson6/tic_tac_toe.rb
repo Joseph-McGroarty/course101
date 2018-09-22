@@ -9,6 +9,8 @@ player_win_num = 0
 computer_win_num = 0
 tie_num = 0
 
+current_player = 'Player'
+
 def prompt(msg)
   puts "=> #{msg}"
 end
@@ -42,13 +44,12 @@ def empty_squares(brd)
 end
 
 def joiner(an_array, opt_arg = ', ', joining_word = 'or')
-  new_string_output = ''
   case an_array.size
   when 0 then ''
   when 1 then an_array.first
   when 2 then an_array.join(" #{joining_word} ")
   else 
-    new_string_output = an_array[0..(an_array.size - 2)].join(opt_arg) + ", #{joining_word} " + an_array.last.to_s
+    an_array[0..(an_array.size - 2)].join(opt_arg) + ", #{joining_word} " + an_array.last.to_s
   end
 end
 
@@ -101,9 +102,20 @@ square = 0
   brd[square] = COMPUTER_MARKER
 end
 
-def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
-  brd[square] = COMPUTER_MARKER
+def alternate_player(player_is)
+  if player_is == 'Player'
+    'Computer'
+  elsif player_is == 'Computer'
+    'Player'
+  end
+end
+
+def place_piece!(brd, player_is)
+  if player_is == 'Player'
+    player_places_piece!(brd)
+  elsif player_is == 'Computer'
+    computer_places_piece_strategically!(brd)
+  end
 end
 
 def board_full?(brd)
@@ -131,9 +143,8 @@ loop do
 
   loop do
     display_board(board)
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-    computer_places_piece_strategically!(board)
+    place_piece!(board, current_player)
+    current_player = alternate_player(current_player)
     break if someone_won?(board) || board_full?(board)
   end
 
