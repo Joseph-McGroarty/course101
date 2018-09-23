@@ -1,13 +1,13 @@
-deck_hash = {two_of_hearts: 2, three_of_hearts: 3, four_of_hearts: 4, five_of_hearts: 5, six_of_hearts: 6,
+deck_hash = {ace_of_hearts: 11, two_of_hearts: 2, three_of_hearts: 3, four_of_hearts: 4, five_of_hearts: 5, six_of_hearts: 6,
             seven_of_hearts: 7, eight_of_hearts: 8, nine_of_hearts: 9, ten_of_hearts: 10,
             jack_of_hearts: 10, queen_of_hearts: 10, king_of_hearts: 10,
-            two_of_diamonds: 2, three_of_diamonds: 3, four_of_diamonds: 4, five_of_diamonds: 5, six_of_diamonds: 6,
+            ace_of_diamonds: 11, two_of_diamonds: 2, three_of_diamonds: 3, four_of_diamonds: 4, five_of_diamonds: 5, six_of_diamonds: 6,
             seven_of_diamonds: 7, eight_of_diamonds: 8, nine_of_diamonds: 9, ten_of_diamonds: 10,
             jack_of_diamonds: 10, queen_of_diamonds: 10, king_of_diamonds: 10,
-            two_of_clubs: 2, three_of_clubs: 3, four_of_clubs: 4, five_of_clubs: 5, six_of_clubs: 6,
+            ace_of_clubs: 11, two_of_clubs: 2, three_of_clubs: 3, four_of_clubs: 4, five_of_clubs: 5, six_of_clubs: 6,
             seven_of_clubs: 7, eight_of_clubs: 8, nine_of_clubs: 9, ten_of_clubs: 10,
             jack_of_clubs: 10, queen_of_clubs: 10, king_of_clubs: 10,
-            two_of_spades: 2, three_of_spades: 3, four_of_spades: 4, five_of_spades: 5, six_of_spades: 6,
+            ace_of_spades: 11, two_of_spades: 2, three_of_spades: 3, four_of_spades: 4, five_of_spades: 5, six_of_spades: 6,
             seven_of_spades: 7, eight_of_spades: 8, nine_of_spades: 9, ten_of_spades: 10,
             jack_of_spades: 10, queen_of_spades: 10, king_of_spades: 10}
 
@@ -36,13 +36,22 @@ def deal_a_card!(deck, deal_to)
   deck.delete(random_card_key)
 end
 
+def hand_value(hand)
+  sum = hand.values.sum
+
+  hand.values.select { |value| value == 11}.count.times do
+    sum -= 10 if sum > 21
+  end
+  sum
+end
+
 def display_table(dlr, plyr)
   prompt "Dealer is showing #{dlr.keys.first} and has #{dlr.length} total cards."
-  prompt "You have #{joiner(plyr.keys)}, which totals #{plyr.values.sum.to_s}."
+  prompt "You have #{joiner(plyr.keys)}, which totals #{hand_value(plyr).to_s}."
 end
 
 def busted?(hand)
-  if hand.values.sum > 21
+  if hand_value(hand) > 21
     return true
   else
     return false
@@ -78,7 +87,7 @@ end
 # dealer turn loop
 if busted?(player_hand) == false
   loop do
-    if dealer_hand.values.sum < 17
+    if hand_value(dealer_hand) < 17
       deal_a_card!(deck_hash, dealer_hand)
       prompt "Dealer hits."
     else
@@ -94,11 +103,11 @@ end
 
 # if no busts, compare hands and declare winner
 if busted?(player_hand) == false && busted?(dealer_hand) == false
-  prompt "You have #{joiner(player_hand.keys)}, which totals #{player_hand.values.sum.to_s}."
-  prompt "Dealer has #{joiner(dealer_hand.keys)}, which totals #{dealer_hand.values.sum.to_s}."
-  if player_hand.values.sum > dealer_hand.values.sum
+  prompt "You have #{joiner(player_hand.keys)}, which totals #{hand_value(player_hand).to_s}."
+  prompt "Dealer has #{joiner(dealer_hand.keys)}, which totals #{hand_value(dealer_hand).to_s}."
+  if hand_value(player_hand) > hand_value(dealer_hand)
     prompt "Player wins!"
-  elsif player_hand.values.sum < dealer_hand.values.sum
+  elsif hand_value(player_hand) < hand_value(dealer_hand)
     prompt "Dealer wins!"
   else
     prompt "It's a tie!"
