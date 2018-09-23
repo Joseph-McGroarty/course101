@@ -47,14 +47,14 @@ end
 
 def display_table(dlr, plyr)
   prompt "Dealer is showing #{dlr.keys.first} and has #{dlr.length} total cards."
-  prompt "You have #{joiner(plyr.keys)}, which totals #{hand_value(plyr).to_s}."
+  prompt "You have #{joiner(plyr.keys)}, which totals #{hand_value(plyr)}."
 end
 
 def busted?(hand)
   if hand_value(hand) > 21
-    return true
+    true
   else
-    return false
+    false
   end
 end
 
@@ -103,8 +103,8 @@ end
 
 # if no busts, compare hands and declare winner
 if busted?(player_hand) == false && busted?(dealer_hand) == false
-  prompt "You have #{joiner(player_hand.keys)}, which totals #{hand_value(player_hand).to_s}."
-  prompt "Dealer has #{joiner(dealer_hand.keys)}, which totals #{hand_value(dealer_hand).to_s}."
+  prompt "You have #{joiner(player_hand.keys)}, which totals #{hand_value(player_hand)}."
+  prompt "Dealer has #{joiner(dealer_hand.keys)}, which totals #{hand_value(dealer_hand)}."
   if hand_value(player_hand) > hand_value(dealer_hand)
     prompt "Player wins!"
   elsif hand_value(player_hand) < hand_value(dealer_hand)
