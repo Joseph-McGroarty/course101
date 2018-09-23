@@ -69,7 +69,38 @@ loop do
     prompt "That's not a valid response, try again."
   end
   if busted?(player_hand)
+    display_table(dealer_hand, player_hand)
     prompt "Player busted, dealer wins!"
     break
+  end
+end
+
+# dealer turn loop
+if busted?(player_hand) == false
+  loop do
+    if dealer_hand.values.sum < 17
+      deal_a_card!(deck_hash, dealer_hand)
+      prompt "Dealer hits."
+    else
+      prompt "Dealer stays."
+      break
+    end
+    if busted?(dealer_hand)
+      prompt "Dealer busted, player wins!"
+      break
+    end
+  end
+end
+
+# if no busts, compare hands and declare winner
+if busted?(player_hand) == false && busted?(dealer_hand) == false
+  prompt "You have #{joiner(player_hand.keys)}, which totals #{player_hand.values.sum.to_s}."
+  prompt "Dealer has #{joiner(dealer_hand.keys)}, which totals #{dealer_hand.values.sum.to_s}."
+  if player_hand.values.sum > dealer_hand.values.sum
+    prompt "Player wins!"
+  elsif player_hand.values.sum < dealer_hand.values.sum
+    prompt "Dealer wins!"
+  else
+    prompt "It's a tie!"
   end
 end
