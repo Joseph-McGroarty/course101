@@ -1,0 +1,32 @@
+
+[1mFrom:[0m /home/josephmcgroarty/course101/test_prep/english_calc.rb @ line 15 Object#computer:
+
+     [1;34m2[0m: [32mdef[0m [1;34mcomputer[0m(english)
+     [1;34m3[0m:   input_arr = english.split([31m[1;31m'[0m[31m [1;31m'[0m[31m[0m)
+     [1;34m4[0m: 
+     [1;34m5[0m:   translator_hash = {[31m[1;31m'[0m[31mzero[1;31m'[0m[31m[0m => [1;34m0[0m, [31m[1;31m'[0m[31mone[1;31m'[0m[31m[0m => [1;34m1[0m, [31m[1;31m'[0m[31mtwo[1;31m'[0m[31m[0m => [1;34m2[0m, [31m[1;31m'[0m[31mthree[1;31m'[0m[31m[0m => [1;34m3[0m, [31m[1;31m'[0m[31mfour[1;31m'[0m[31m[0m => [1;34m4[0m,
+     [1;34m6[0m:                     [31m[1;31m'[0m[31mfive[1;31m'[0m[31m[0m => [1;34m5[0m, [31m[1;31m'[0m[31msix[1;31m'[0m[31m[0m => [1;34m6[0m, [31m[1;31m'[0m[31mseven[1;31m'[0m[31m[0m => [1;34m7[0m, [31m[1;31m'[0m[31meight[1;31m'[0m[31m[0m => [1;34m8[0m,
+     [1;34m7[0m:                     [31m[1;31m'[0m[31mnine[1;31m'[0m[31m[0m => [1;34m9[0m, [31m[1;31m'[0m[31m0[1;31m'[0m[31m[0m => [1;34m0[0m, [31m[1;31m'[0m[31m1[1;31m'[0m[31m[0m => [1;34m1[0m, [31m[1;31m'[0m[31m2[1;31m'[0m[31m[0m => [1;34m2[0m, [31m[1;31m'[0m[31m3[1;31m'[0m[31m[0m => [1;34m3[0m, [31m[1;31m'[0m[31m4[1;31m'[0m[31m[0m => [1;34m4[0m,
+     [1;34m8[0m:                     [31m[1;31m'[0m[31m5[1;31m'[0m[31m[0m => [1;34m5[0m, [31m[1;31m'[0m[31m6[1;31m'[0m[31m[0m => [1;34m6[0m, [31m[1;31m'[0m[31m7[1;31m'[0m[31m[0m => [1;34m7[0m, [31m[1;31m'[0m[31m8[1;31m'[0m[31m[0m => [1;34m8[0m, [31m[1;31m'[0m[31m9[1;31m'[0m[31m[0m => [1;34m9[0m}
+     [1;34m9[0m: 
+    [1;34m10[0m:   result = translator_hash[input_arr[[1;34m0[0m]]
+    [1;34m11[0m: 
+    [1;34m12[0m:   input_arr.each_with_index [32mdo[0m |word, index|
+    [1;34m13[0m:     [32mnext[0m [32mif[0m index == [1;34m0[0m
+    [1;34m14[0m:     [32mnext[0m [32mif[0m index.odd?
+ => [1;34m15[0m:     binding.pry
+    [1;34m16[0m:     operator_word = input_arr[index - [1;34m1[0m]
+    [1;34m17[0m: 
+    [1;34m18[0m:     [32mif[0m operator_word == [31m[1;31m'[0m[31mplus[1;31m'[0m[31m[0m
+    [1;34m19[0m:       result += translator_hash[word]
+    [1;34m20[0m:     [32melsif[0m operator_word == [31m[1;31m'[0m[31mminus[1;31m'[0m[31m[0m
+    [1;34m21[0m:       result -= translator_hash[word]
+    [1;34m22[0m:     [32melsif[0m operator_word == [31m[1;31m'[0m[31mtimes[1;31m'[0m[31m[0m
+    [1;34m23[0m:       result *= translator_hash[word]
+    [1;34m24[0m:     [32melsif[0m operator_word == [31m[1;31m'[0m[31mdividedby[1;31m'[0m[31m[0m && word != [1;34m0[0m
+    [1;34m25[0m:       result /= translator_hash[word]
+    [1;34m26[0m:     [32mend[0m
+    [1;34m27[0m:   [32mend[0m
+    [1;34m28[0m:   result
+    [1;34m29[0m: [32mend[0m
+

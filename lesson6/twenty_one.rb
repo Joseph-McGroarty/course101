@@ -16,6 +16,8 @@ deck_hash = {ace_of_hearts: 11, two_of_hearts: 2, three_of_hearts: 3, four_of_he
 
 player_hand = {}
 dealer_hand = {}
+player_total = 0
+dealer_total = 0
 
 player_wins = 0
 dealer_wins = 0
@@ -52,22 +54,22 @@ def hand_value(hand)
   sum
 end
 
-def display_table(dlr, plyr)
+def display_table(dlr, plyr, p_total)
   prompt "Dealer is showing #{dlr.keys.first} and has #{dlr.length} total cards."
-  prompt "You have #{joiner(plyr.keys)}, which totals #{hand_value(plyr)}."
+  prompt "You have #{joiner(plyr.keys)}, which totals #{p_total}."
 end
 
-def busted?(hand)
-  if hand_value(hand) > BUST_OVER
+def busted?(total_of)
+  if total_of > BUST_OVER
     true
   else
     false
   end
 end
 
-def expose_hands(plyr, dlr)
-  prompt "You have #{joiner(plyr.keys)}, which totals #{hand_value(plyr)}."
-    prompt "Dealer has #{joiner(dlr.keys)}, which totals #{hand_value(dlr)}."
+def expose_hands(plyr, dlr, p_total, d_total)
+  prompt "You have #{joiner(plyr.keys)}, which totals #{p_total}."
+    prompt "Dealer has #{joiner(dlr.keys)}, which totals #{d_total}."
 end
 
 def play_again?
@@ -85,21 +87,24 @@ loop do
   deal_a_card!(deck_hash, dealer_hand)
   deal_a_card!(deck_hash, player_hand)
   deal_a_card!(deck_hash, dealer_hand)
+  player_total = hand_value(player_hand)
+  dealer_total = hand_value(dealer_hand)
 
   # player turn loop
   loop do
-    display_table(dealer_hand, player_hand)
+    display_table(dealer_hand, player_hand, player_total)
     prompt "Hit or stay?"
     player_hit_or_stay = gets.chomp.downcase
     if player_hit_or_stay == 'hit'
       deal_a_card!(deck_hash, player_hand)
+      player_total = hand_value(player_hand)
     elsif player_hit_or_stay == 'stay'
       break
     else
       prompt "That's not a valid response, try again."
     end
-    if busted?(player_hand)
-      expose_hands(player_hand, dealer_hand)
+    if busted?(player_total)
+      expose_hands(player_hand, dealer_hand, player_total, dealer_total)
       prompt "Player busted, dealer wins!"
       dealer_wins += 1
       break
@@ -107,17 +112,18 @@ loop do
   end
 
   # dealer turn loop
-  if busted?(player_hand) == false
+  if busted?(player_total) == false
     loop do
-      if hand_value(dealer_hand) < DEALER_HITS_TO
+      if dealer_total < DEALER_HITS_TO
         deal_a_card!(deck_hash, dealer_hand)
         prompt "Dealer hits."
+        dealer_total = hand_value(dealer_hand)
       else
         prompt "Dealer stays."
         break
       end
-      if busted?(dealer_hand)
-        expose_hands(player_hand, dealer_hand)
+      if busted?(dealer_total)
+        eexpose_hands(player_hand, dealer_hand, player_total, dealer_total)
         prompt "Dealer busted, player wins!"
         player_wins += 1
         break
@@ -126,12 +132,12 @@ loop do
   end
 
   # if no busts, compare hands and declare winner
-  if busted?(player_hand) == false && busted?(dealer_hand) == false
-    expose_hands(player_hand, dealer_hand)
-    if hand_value(player_hand) > hand_value(dealer_hand)
+  if busted?(player_total) == false && busted?(dealer_total) == false
+    expose_hands(player_hand, dealer_hand, player_total, dealer_total)
+    if player_total > dealer_total
       prompt "Player wins!"
       player_wins += 1
-    elsif hand_value(player_hand) < hand_value(dealer_hand)
+    elsif player_total < dealer_total
       prompt "Dealer wins!"
       dealer_wins += 1
     else

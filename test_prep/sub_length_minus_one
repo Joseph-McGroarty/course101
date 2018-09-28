@@ -1,0 +1,19 @@
+
+[1mFrom:[0m /home/josephmcgroarty/course101/test_prep/all-subs.rb @ line 14 Object#substrings:
+
+     [1;34m3[0m: [32mdef[0m [1;34msubstrings[0m(str)
+     [1;34m4[0m:   [32mreturn[0m [1;36mnil[0m [32munless[0m str.length >= [1;34m2[0m
+     [1;34m5[0m:   counter = [1;34m0[0m
+     [1;34m6[0m:   result = []
+     [1;34m7[0m:   [1;34m#sub_length_minus_one = 1[0m
+     [1;34m8[0m:   [32mfor[0m sub_length_minus_one [32min[0m ([1;34m1[0m..[1;34m2[0m)
+     [1;34m9[0m:     loop [32mdo[0m
+    [1;34m10[0m:       result << str[counter..counter + sub_length_minus_one]
+    [1;34m11[0m:       [32mbreak[0m [32mif[0m counter == str.length - [1;34m1[0m - sub_length_minus_one
+    [1;34m12[0m:       counter += [1;34m1[0m
+    [1;34m13[0m:     [32mend[0m
+ => [1;34m14[0m:     binding.pry
+    [1;34m15[0m:   [32mend[0m
+    [1;34m16[0m:   result
+    [1;34m17[0m: [32mend[0m
+
